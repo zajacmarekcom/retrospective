@@ -12,7 +12,7 @@ Here is a list of planned features in Retrospective. Implemented features are ma
     - [ ] Team boards
         - [ ] Create board with Good/Bad/Improvements columns
         - [ ] Close previous board when new one is created
-        - Add open items to new board
+        - [ ] Add open items to new board
     - [ ] Board actions
         - [ ] Move items between columns
         - [ ] Reorder items in column
@@ -46,8 +46,9 @@ Here is a list of planned features in Retrospective. Implemented features are ma
     - [ ] Vote for actions
 - [ ] Team management
     - [ ] Create team
-    - [ ] Join by code
-    - [ ] Join by link
+    - [ ] Join the team
+        - [ ] Join by code
+        - [ ] Join by link
     - [ ] Accounts
         - [ ] Create account
         - [ ] Login
