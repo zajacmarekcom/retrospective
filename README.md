@@ -59,11 +59,28 @@ Here is a list of planned features in Retrospective. Implemented features are ma
         - [ ] Profile activities
         - [ ] Profile picture
 
+## Model Design
+
 ## Technology
 
 ### Architecture
 
+![Project architecture](retrospective-architecture.png "Project architecture")
+
 ### Tech-stack
+
+The main reason to build Retrospective.Dev is provide example of production-ready code written in tech stack listed below:
+
+- ASP.NET Core 8
+- Blazor
+- Tailwind
+- SignalR
+- Entity Framework Core
+- Azure SQL Server
+- Azure Cosmos DB
+- Azure Service Bus
+- GitHub Actions
+- Azure App Service
 
 ## Contribution
 
