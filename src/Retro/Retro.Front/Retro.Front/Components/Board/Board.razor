@@ -1,0 +1,45 @@
+﻿<CascadingValue Value="this">
+    <div class="grid grid-cols-3 gap-4">
+        <BoardColumn @ref="GoodColumn" OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" Items="_good"></BoardColumn>
+        <BoardColumn @ref="BadColumn" OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" Items="_bad"></BoardColumn>
+        <BoardColumn @ref="ImproveColumn"  OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" Items="_improve"></BoardColumn>
+    </div>
+</CascadingValue>
+
+@code {
+    private List<BoardItem> _good = new() { new BoardItem() };
+    private List<BoardItem> _bad = new();
+    private List<BoardItem> _improve = new();
+    
+    BoardColumn GoodColumn { get; set; }
+    BoardColumn BadColumn { get; set; }
+    BoardColumn ImproveColumn { get; set; }
+
+    private BoardItem? _selectedItem;
+
+    private void OnPointerEnter(BoardColumn column)
+    {
+        if (_selectedItem != null)
+        {
+            column.AddItem(_selectedItem);
+        }
+    }
+
+    private void OnPointerLeave(BoardColumn column)
+    {
+        if (_selectedItem != null)
+        {
+            column.RemoveItem(_selectedItem);
+        }
+    }
+    
+    public void OnItemDragStart(BoardItem item)
+    {
+        _selectedItem = item;
+    }
+    
+    public void OnItemDragEnd()
+    {
+        _selectedItem = null;
+    }
+}

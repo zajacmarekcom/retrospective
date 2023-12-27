@@ -1,0 +1,25 @@
+﻿<div class="border border-solid p-4" @onpointerenter="@(() => OnPointerEnter(this))" @onpointerleave="@(() => OnPointerLeave(this))">
+    @foreach(var item in Items)
+    {
+        <BoardItem></BoardItem>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public List<BoardItem> Items { get; set; } = new List<BoardItem>();
+    [Parameter]
+    public Action<BoardColumn> OnPointerEnter { get; set; }
+    [Parameter]
+    public Action<BoardColumn> OnPointerLeave { get; set; }
+
+    public void AddItem(BoardItem item)
+    {
+        Items.Add(item);
+    }
+    
+    public void RemoveItem(BoardItem item)
+    {
+        Items.Remove(item);
+    }
+}

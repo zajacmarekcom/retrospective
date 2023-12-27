@@ -1,0 +1,50 @@
+﻿@rendermode InteractiveServer
+
+<div class="@GetClasses()" @onpointerdown="@(OnClick)" @onpointerup="@(OnClickUp)" @onpointermove="@(OnPointerMove)">
+    <p class="w-full text-base">
+        Test title test title test title
+    </p>
+</div>
+
+@code {
+    private bool _isClicked = false;
+    [CascadingParameter]
+    public Board? Board { get; set; }
+
+    private void OnClick(PointerEventArgs e)
+    {
+        _isClicked = true;
+        Board!.OnItemDragStart(this);
+        StateHasChanged();
+    }
+
+    private void OnClickUp(PointerEventArgs e)
+    {
+        _isClicked = false;
+        Board!.OnItemDragEnd();
+        StateHasChanged();
+    }
+    
+    private void OnPointerMove(PointerEventArgs e)
+    {
+        if (_isClicked)
+        {
+        }
+    }
+
+    private string GetClasses()
+    {
+        var classes = "p-3 my-3 w-full rounded-xl";
+
+        if (_isClicked)
+        {
+            classes += " border-dotted border-4 rotate-2 select-none";
+        }
+        else
+        {
+            classes += " border-solid border";
+        }
+
+        return classes;
+    }
+}
