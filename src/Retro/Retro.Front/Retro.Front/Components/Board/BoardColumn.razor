@@ -1,25 +1,40 @@
-﻿<div class="border border-solid p-4" @onpointerenter="@(() => OnPointerEnter(this))" @onpointerleave="@(() => OnPointerLeave(this))">
+﻿@using Retro.Front.Components.Board.Dtos
+<div class="border border-solid p-4" @onpointerenter="@(() => OnPointerEnter(this))" @onpointerleave="@(() => OnPointerLeave(this))" @onpointerup="@(() => OnItemDropped(this))">
+    @if (_showTemporaryItem)
+    {
+        <TemporaryBoardItem />
+    }
     @foreach(var item in Items)
     {
-        <BoardItem></BoardItem>
+        <BoardItem Item="item"></BoardItem>
     }
 </div>
 
 @code {
-    [Parameter]
-    public List<BoardItem> Items { get; set; } = new List<BoardItem>();
-    [Parameter]
-    public Action<BoardColumn> OnPointerEnter { get; set; }
-    [Parameter]
-    public Action<BoardColumn> OnPointerLeave { get; set; }
+    [Parameter] public List<BoardItemDto> Items { get; set; } = new();
+    [Parameter] public required Action<BoardColumn> OnItemDropped { get; set; }
+    [Parameter] public required Action<BoardColumn> OnPointerEnter { get; set; }
+    [Parameter] public required Action<BoardColumn> OnPointerLeave { get; set; }
 
-    public void AddItem(BoardItem item)
+    private bool _showTemporaryItem = false;
+
+    public void AddItem(BoardItemDto item)
     {
         Items.Add(item);
     }
-    
-    public void RemoveItem(BoardItem item)
+
+    public void RemoveItem(BoardItemDto item)
     {
         Items.Remove(item);
+    }
+
+    public void ShowTemporaryItem()
+    {
+        _showTemporaryItem = true;
+    }
+
+    public void HideTemporaryItem()
+    {
+        _showTemporaryItem = false;
     }
 }

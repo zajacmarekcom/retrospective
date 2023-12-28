@@ -1,4 +1,5 @@
-﻿@rendermode InteractiveServer
+﻿@using Retro.Front.Components.Board.Dtos
+@rendermode InteractiveServer
 
 <div class="@GetClasses()" @onpointerdown="@(OnClick)" @onpointerup="@(OnClickUp)" @onpointermove="@(OnPointerMove)">
     <p class="w-full text-base">
@@ -10,11 +11,14 @@
     private bool _isClicked = false;
     [CascadingParameter]
     public Board? Board { get; set; }
+    
+    [Parameter]
+    public BoardItemDto Item { get; set; }
 
     private void OnClick(PointerEventArgs e)
     {
         _isClicked = true;
-        Board!.OnItemDragStart(this);
+        Board!.OnItemDragStart(Item);
         StateHasChanged();
     }
 
