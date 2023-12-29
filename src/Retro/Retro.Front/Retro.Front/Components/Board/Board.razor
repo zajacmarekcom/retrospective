@@ -1,70 +1,71 @@
 ﻿@using Retro.Front.Components.Board.Dtos
-<CascadingValue Value="this">
+
+<CascadingValue Value="this" IsFixed="true">
     <div class="grid grid-cols-3 gap-4">
-        <BoardColumn @ref="GoodColumn" OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" OnItemDropped="OnItemDropped" Items="_good"></BoardColumn>
-        <BoardColumn @ref="BadColumn" OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" OnItemDropped="OnItemDropped" Items="_bad"></BoardColumn>
-        <BoardColumn @ref="ImproveColumn" OnPointerEnter="OnPointerEnter" OnPointerLeave="OnPointerLeave" OnItemDropped="OnItemDropped" Items="_improve"></BoardColumn>
+        @ChildContent
     </div>
 </CascadingValue>
 
 @code {
-    private List<BoardItemDto> _good = new() { new("Test title title title", true, 0) };
-    private List<BoardItemDto> _bad = new();
-    private List<BoardItemDto> _improve = new();
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    
+    [Parameter]
+    public List<BoardItemDto> Items { get; set; } = [new BoardItemDto("Test title title title", true, 0, BoardItemType.Good), new BoardItemDto("Test title", true, 0, BoardItemType.Good)];
 
-    BoardColumn GoodColumn { get; set; }
-    BoardColumn BadColumn { get; set; }
-    BoardColumn ImproveColumn { get; set; }
+    private BoardItem? _selectedItem;
+    private List<BoardColumn> _columns = new();
 
-    private BoardItemDto? _selectedItem;
+    public void AddColumn(BoardColumn column)
+    {
+        column.Items = Items;
+        _columns.Add(column);
+    }
 
-    private void OnItemDropped(BoardColumn column)
+    public void OnItemDropped(BoardItemType newType)
     {
         if (_selectedItem != null)
         {
-            GoodColumn.HideTemporaryItem();
-            BadColumn.HideTemporaryItem();
-            ImproveColumn.HideTemporaryItem();
-            GoodColumn.RemoveItem(_selectedItem);
-            BadColumn.RemoveItem(_selectedItem);
-            ImproveColumn.RemoveItem(_selectedItem);
-
-            column.AddItem(_selectedItem);
-            
+            Items[Items.IndexOf(_selectedItem.Item)] = _selectedItem.Item with { Type = newType };
+            foreach (var column in _columns)
+            {
+                column.HideTemporaryItem();
+            }
             OnItemDragEnd();
-
             StateHasChanged();
         }
     }
 
-    private void OnPointerEnter(BoardColumn column)
+    public void OnPointerEnter(BoardColumn selectedColumn)
     {
-        GoodColumn.HideTemporaryItem();
-        BadColumn.HideTemporaryItem();
-        ImproveColumn.HideTemporaryItem();
         if (_selectedItem is not null)
         {
-            column.ShowTemporaryItem();
+            foreach (var column in _columns)
+            {
+                if (column != selectedColumn)
+                    column.HideTemporaryItem();
+            }
+            selectedColumn.ShowTemporaryItem();
             StateHasChanged();
         }
     }
 
-    private void OnPointerLeave(BoardColumn column)
+    public void OnPointerLeave(BoardColumn column)
     {
-        GoodColumn.HideTemporaryItem();
-        BadColumn.HideTemporaryItem();
-        ImproveColumn.HideTemporaryItem();
+        column.HideTemporaryItem();
         StateHasChanged();
     }
 
-    public void OnItemDragStart(BoardItemDto item)
+    public void OnItemDragStart(BoardItem item)
     {
         _selectedItem = item;
     }
 
     public void OnItemDragEnd()
     {
+        _selectedItem?.OnDropped();
         _selectedItem = null;
+        StateHasChanged();
     }
 
 }

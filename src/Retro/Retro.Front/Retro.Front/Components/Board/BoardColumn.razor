@@ -1,40 +1,58 @@
 ﻿@using Retro.Front.Components.Board.Dtos
-<div class="border border-solid p-4" @onpointerenter="@(() => OnPointerEnter(this))" @onpointerleave="@(() => OnPointerLeave(this))" @onpointerup="@(() => OnItemDropped(this))">
+
+<div class="border border-solid p-4" @onpointerenter="@(OnPointerEnter)" @onpointerleave="@(OnPointerLeave)" @onpointerup="@(OnItemDropped)">
     @if (_showTemporaryItem)
     {
         <TemporaryBoardItem />
     }
-    @foreach(var item in Items)
+    @foreach(var item in FilteredItems)
     {
         <BoardItem Item="item"></BoardItem>
     }
 </div>
 
 @code {
-    [Parameter] public List<BoardItemDto> Items { get; set; } = new();
-    [Parameter] public required Action<BoardColumn> OnItemDropped { get; set; }
-    [Parameter] public required Action<BoardColumn> OnPointerEnter { get; set; }
-    [Parameter] public required Action<BoardColumn> OnPointerLeave { get; set; }
+    [CascadingParameter]
+    public Board? Board { get; set; }
+    [Parameter]
+    public required BoardItemType Type { get; set; }
+    [Parameter]
+    public IEnumerable<BoardItemDto> Items { get; set; } = new List<BoardItemDto>();
+    
+    private IEnumerable<BoardItemDto> FilteredItems => Items.Where(x => x.Type == Type);
+    
+    private bool _showTemporaryItem;
 
-    private bool _showTemporaryItem = false;
-
-    public void AddItem(BoardItemDto item)
+    protected override void OnInitialized()
     {
-        Items.Add(item);
-    }
-
-    public void RemoveItem(BoardItemDto item)
-    {
-        Items.Remove(item);
+        Board?.AddColumn(this);
     }
 
     public void ShowTemporaryItem()
     {
         _showTemporaryItem = true;
+        StateHasChanged();
     }
 
     public void HideTemporaryItem()
     {
         _showTemporaryItem = false;
+        StateHasChanged();
+    }
+
+    private void OnItemDropped()
+    {
+        Board?.OnItemDropped(Type);
+        StateHasChanged();
+    }
+    
+    private void OnPointerEnter()
+    {
+        Board?.OnPointerEnter(this);
+    }
+    
+    private void OnPointerLeave()
+    {
+        Board?.OnPointerLeave(this);
     }
 }
