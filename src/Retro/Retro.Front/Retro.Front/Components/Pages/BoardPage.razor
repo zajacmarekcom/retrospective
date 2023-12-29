@@ -1,0 +1,10 @@
+﻿@page "/app/board"
+@using Retro.Front.Components.Board
+@using Retro.Front.Components.Board.Dtos
+@rendermode InteractiveServer
+
+<Board>
+    <BoardColumn Type="BoardItemType.Good" />
+    <BoardColumn Type="BoardItemType.Bad" />
+    <BoardColumn Type="BoardItemType.Improvement" />
+</Board>
