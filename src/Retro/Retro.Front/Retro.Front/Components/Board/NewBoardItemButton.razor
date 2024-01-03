@@ -1,0 +1,14 @@
+﻿<div class="p-0 my-3 w-full rounded-xl border-dotted border-2">
+    <button @onclick="OnClick" class="w-full p-2 hover:bg-blue-200 stroke-blue-500 text-blue-500 hover:text-white hover:stroke-white flex justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-8 h-8 stroke-1 me-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <span>New Item</span>
+    </button>
+</div>
+
+@code
+{
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

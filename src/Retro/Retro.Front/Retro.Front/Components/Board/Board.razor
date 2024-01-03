@@ -1,7 +1,7 @@
 ﻿@using Retro.Front.Components.Board.Dtos
 
 <CascadingValue Value="this" IsFixed="true">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4 select-none">
         @ChildContent
     </div>
 </CascadingValue>
@@ -11,10 +11,13 @@
     public RenderFragment? ChildContent { get; set; }
     
     [Parameter]
-    public List<BoardItemDto> Items { get; set; } = [new BoardItemDto("Test title title title", true, 0, BoardItemType.Good), new BoardItemDto("Test title", true, 0, BoardItemType.Good)];
+    public List<BoardItemDto> Items { get; set; } = [];
+    
+    [Parameter]
+    public required Func<BoardItemDto, Task> OnItemCreated { get; set; }
 
     private BoardItem? _selectedItem;
-    private List<BoardColumn> _columns = new();
+    private List<BoardColumn> _columns = [];
 
     public void AddColumn(BoardColumn column)
     {
@@ -24,30 +27,26 @@
 
     public void OnItemDropped(BoardItemType newType)
     {
-        if (_selectedItem != null)
+        if (_selectedItem == null) return;
+        Items[Items.IndexOf(_selectedItem.Item)] = _selectedItem.Item with { Type = newType };
+        foreach (var column in _columns)
         {
-            Items[Items.IndexOf(_selectedItem.Item)] = _selectedItem.Item with { Type = newType };
-            foreach (var column in _columns)
-            {
-                column.HideTemporaryItem();
-            }
-            OnItemDragEnd();
-            StateHasChanged();
+            column.HideTemporaryItem();
         }
+        _selectedItem?.OnDropped();
+        _selectedItem = null;
+        StateHasChanged();
     }
 
     public void OnPointerEnter(BoardColumn selectedColumn)
     {
-        if (_selectedItem is not null)
+        if (_selectedItem is null) return;
+        foreach (var column in _columns.Where(column => column != selectedColumn))
         {
-            foreach (var column in _columns)
-            {
-                if (column != selectedColumn)
-                    column.HideTemporaryItem();
-            }
-            selectedColumn.ShowTemporaryItem();
-            StateHasChanged();
+            column.HideTemporaryItem();
         }
+        selectedColumn.ShowTemporaryItem();
+        StateHasChanged();
     }
 
     public void OnPointerLeave(BoardColumn column)
@@ -60,12 +59,10 @@
     {
         _selectedItem = item;
     }
-
-    public void OnItemDragEnd()
+    
+    public async Task AddItem(BoardItemType type)
     {
-        _selectedItem?.OnDropped();
-        _selectedItem = null;
-        StateHasChanged();
+        var item = new BoardItemDto("New item", true, 0, type);
+        await OnItemCreated(item);
     }
-
 }

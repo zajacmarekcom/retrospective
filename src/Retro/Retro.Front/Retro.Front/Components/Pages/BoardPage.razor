@@ -3,8 +3,21 @@
 @using Retro.Front.Components.Board.Dtos
 @rendermode InteractiveServer
 
-<Board>
-    <BoardColumn Type="BoardItemType.Good" />
-    <BoardColumn Type="BoardItemType.Bad" />
-    <BoardColumn Type="BoardItemType.Improvement" />
+<Board Items="_boardItems" OnItemCreated="@OnItemCreated">
+    <BoardColumn Title="Good" Type="BoardItemType.Good" />
+    <BoardColumn Title="Bad" Type="BoardItemType.Bad" />
+    <BoardColumn Title="Improvement" Type="BoardItemType.Improvement" />
 </Board>
+
+
+@code
+{
+    private readonly List<BoardItemDto> _boardItems = new();
+    
+    private async Task OnItemCreated(BoardItemDto item)
+    {
+        await Task.Delay(1000);
+        _boardItems.Add(item);
+        StateHasChanged();
+    }
+}
