@@ -1,22 +1,28 @@
 ﻿@using Retro.Front.Components.Board.Dtos
 
 <div class="border border-solid p-4" @onpointerenter="@(OnPointerEnter)" @onpointerleave="@(OnPointerLeave)" @onpointerup="@(OnItemDropped)">
+    <h3 class="border-b border-solid  p-2 tracking-wide text-center font-extralight text-lg uppercase">
+        @Title
+    </h3>
     @if (_showTemporaryItem)
     {
-        <TemporaryBoardItem />
+        <TemporaryBoardItem/>
     }
-    @foreach(var item in FilteredItems)
+    @foreach (var item in FilteredItems)
     {
         <BoardItem Item="item"></BoardItem>
     }
+    <NewBoardItemButton OnClick="@OnNewItemClick" />
 </div>
 
 @code {
     [CascadingParameter]
-    public Board? Board { get; set; }
+    public required Board Board { get; set; }
     [Parameter]
     public required BoardItemType Type { get; set; }
     [Parameter]
+    public string Title { get; set; } = "";
+    
     public IEnumerable<BoardItemDto> Items { get; set; } = new List<BoardItemDto>();
     
     private IEnumerable<BoardItemDto> FilteredItems => Items.Where(x => x.Type == Type);
@@ -25,7 +31,7 @@
 
     protected override void OnInitialized()
     {
-        Board?.AddColumn(this);
+        Board.AddColumn(this);
     }
 
     public void ShowTemporaryItem()
@@ -42,17 +48,22 @@
 
     private void OnItemDropped()
     {
-        Board?.OnItemDropped(Type);
+        Board.OnItemDropped(Type);
         StateHasChanged();
     }
     
     private void OnPointerEnter()
     {
-        Board?.OnPointerEnter(this);
+        Board.OnPointerEnter(this);
     }
     
     private void OnPointerLeave()
     {
-        Board?.OnPointerLeave(this);
+        Board.OnPointerLeave(this);
+    }
+
+    private async Task OnNewItemClick()
+    {
+        await Board.AddItem(Type);
     }
 }
