@@ -1,0 +1,9 @@
+﻿<div class="w-full mx-3 my-2">
+    <label class="text-xs italic text-orange-500">@Label</label>
+    <input type="@Type" class="p-3 w-full mt-1 text-xl text-orange-500 border border-orange-500"/>
+</div>
+
+@code {
+    [Parameter] public string Type { get; set; } = "text";
+    [Parameter] public string? Label { get; set; }
+}

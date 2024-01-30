@@ -1,5 +1,13 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
-
-<a href="app/board">Go to board</a>
+<div class="grid grid-cols-3">
+    <div>
+        <FullButton Text="Start Session"/>
+        <div>
+            <CancelButton Text="Cancel"/>
+            <ApproveButton Text="OK"/>
+        </div>
+        <TextInput Label="Test label" />
+        <TextInput Type="password" Label="Password" />
+    </div>
+</div>
