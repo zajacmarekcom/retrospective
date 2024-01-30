@@ -1,0 +1,11 @@
+﻿<button @onclick="OnClick" class="p-2 mx-1 w-1/3 my-2 bg-orange-100 text-md subpixel-antialiased text-orange-500 border border-orange-500 hover:bg-orange-500 hover:text-white">
+    @Text
+</button>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+    
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}
