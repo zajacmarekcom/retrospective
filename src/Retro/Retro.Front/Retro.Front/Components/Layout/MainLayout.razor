@@ -1,12 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="min-h-dvh h-full flex flex-col">
-    <div class="flex-none p-2 w-full m-0 mb-3 grid grid-cols-3">
-        <div>
+    <div class="flex-none p-2 w-full m-0 mb-3 grid grid-cols-3 grid-flow-row-dense">
+        <div class="order-3 w-full md:w-auto md:order-1">
             <SectionOutlet SectionName="PreLogoTopBar"/>
         </div>
         <Logo />
-        <div>
+        <div class="order-2 md:order-3">
             <SectionOutlet SectionName="PostLogoTopBar"/>
         </div>
     </div>
