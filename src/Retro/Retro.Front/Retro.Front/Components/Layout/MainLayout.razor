@@ -1,5 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
-<main class="bg-white dark:bg-slate-800 h-dvh">
-    @Body
-</main>
+<div class="min-h-dvh h-full flex flex-col">
+    <div class="flex-none p-2 w-full m-0 mb-3 grid grid-cols-3">
+        <div>
+            <SectionOutlet SectionName="PreLogoTopBar"/>
+        </div>
+        <Logo />
+        <div>
+            <SectionOutlet SectionName="PostLogoTopBar"/>
+        </div>
+    </div>
+    <div class="w-full flex flex-auto min-h-full p-3">
+        @Body
+    </div>
+</div>

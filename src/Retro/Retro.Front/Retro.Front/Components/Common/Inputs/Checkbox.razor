@@ -1,0 +1,27 @@
+﻿@inherits BaseComponent
+<div class="mx-3 my-2 flex gap-2 items-center">
+    <input type="checkbox" @bind="Value" id="@InputId"
+           class="cursor-pointer relative peer appearance-none mt-1 w-6 h-6 border-2 text-orange-500 border-orange-500 rounded-sm bg-white shrink-0 checked:bg-orange-100 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100 disabled:border-steel-400 disabled:bg-steel-400" />
+    <label class="cursor-pointer" for="@InputId">@Label</label>
+    <svg
+        class="absolute w-6 h-6 mt-1 hidden peer-checked:block pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+    </svg>
+</div>
+
+@code
+{
+    [Parameter] public bool Value { get; set; }
+    [Parameter] public string? Label { get; set; }
+    
+    private string? _inputId;
+    
+    private string InputId => _inputId ??= $"checkbox-{Guid.NewGuid():N}";
+}
