@@ -1,4 +1,6 @@
-﻿<h2 class="w-full text-2xl text-orange-500 font-bold text-center">@Title</h2>
+﻿@inherits BaseComponent
+
+<h2 class="@($"w-full text-2xl text-orange-500 font-bold text-center {Class}")">@Title</h2>
 
 @code {
     [Parameter] public string? Title { get; set; }
