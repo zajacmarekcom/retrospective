@@ -1,0 +1,15 @@
+﻿@page "/app/team/join/{code?}"
+
+<div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
+    <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
+        <MainTitle Title="Join the Team" Class="mb-8"/>
+        <p class="text-center mb-8">Enter the join code passed to you by the Team Owner:</p>
+        <TextInput Value="@Code" Label="Code"/>
+        <FullButton Text="Join" Class="mt-8"/>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? Code { get; set; }
+}
