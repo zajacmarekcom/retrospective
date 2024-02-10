@@ -1,0 +1,16 @@
+﻿@page "/app/login"
+
+<div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
+    <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
+        <MainTitle Title="Login" Class="mb-8"/>
+        <TextInput Label="E-mail"/>
+        <TextInput Type="password" Label="Password"/>
+        <Checkbox Label="Remember me"></Checkbox>
+        <FullButton Text="Log in" Class="mt-8"/>
+
+        <div class="flex flex-row justify-between mt-8">
+            <a class="text-orange-500" href="/app/reset-password">Forgot password?</a>
+            <a class="text-orange-500" href="/app/register">Create account</a>
+        </div>
+    </div>
+</div>
