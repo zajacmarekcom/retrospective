@@ -1,9 +1,10 @@
 ﻿<div class="w-full mx-0 md:mx-3 my-2">
     <label class="text-sm italic text-orange-500">@Label</label>
-    <input type="@Type" class="p-3 w-full mt-1 text-lg text-orange-500 border border-orange-500"/>
+    <input @bind="Value" type="@Type" class="p-3 w-full mt-1 text-lg text-orange-500 border border-orange-500"/>
 </div>
 
 @code {
     [Parameter] public string Type { get; set; } = "text";
     [Parameter] public string? Label { get; set; }
+    [Parameter] public string? Value { get; set; }
 }
