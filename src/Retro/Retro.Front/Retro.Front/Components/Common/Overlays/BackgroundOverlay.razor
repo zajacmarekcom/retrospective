@@ -1,0 +1,9 @@
+﻿<div class="fixed w-screen h-dvh backdrop-blur-sm bg-white/30 z-10 top-0 left-0">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+}

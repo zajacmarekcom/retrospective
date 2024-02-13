@@ -1,0 +1,18 @@
+﻿<BackgroundOverlay>
+    <div class="fixed w-11/12 md:w-1/2 lg:w-1/4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-gray-500 shadow-xl p-1">
+        <div class="text-center text-lg font-light uppercase my-3">
+            @Title
+        </div>
+        @Content
+        <div class="mt-3 flex justify-end">
+            @Actions
+        </div>
+    </div>
+</BackgroundOverlay>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public RenderFragment Content { get; set; }
+    [Parameter] public RenderFragment Actions { get; set; }
+}
