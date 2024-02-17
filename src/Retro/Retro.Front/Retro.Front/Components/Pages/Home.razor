@@ -1,8 +1,9 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <div class="grid grid-cols-3">
     <div>
-        <Logo />
+        <Logo/>
         <FullButton Text="Start Session"/>
         <JoinButton Text="Start session"/>
         <div>
@@ -13,14 +14,27 @@
         <TextInput Type="password" Label="Password"/>
         <MainTitle Title="Register"/>
         <SecondaryTitle Title="Secondary modal"/>
-        <Modal Title="Test title">
+        <Modal Title="Test title" @ref="_modal">
             <Content>
                 Test
             </Content>
             <Actions>
-                <CancelButton Text="Cancel" />
-                <ApproveButton Text="Add"/>
+                <CancelButton Text="Cancel" OnClick="@(() => _modal.Close())"/>
+                <ApproveButton Text="Add" OnClick="@(() => _modal.Close())"/>
             </Actions>
         </Modal>
     </div>
 </div>
+
+@code
+{
+    private Modal _modal;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _modal.Open();
+        }
+    }
+}
