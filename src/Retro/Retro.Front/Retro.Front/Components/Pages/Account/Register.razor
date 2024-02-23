@@ -1,15 +1,57 @@
 ﻿@page "/app/register"
+@using System.ComponentModel.DataAnnotations
+@using MediatR
+@using Retro.Application.Account.Commands
+@inject IMediator Mediator
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
     <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
-        <MainTitle Title="Registration" Class="mb-8" />
-        <TextInput Label="E-mail" />
-        <TextInput Type="password" Label="Password" />
-        <TextInput Type="password" Label="Confirm Password" />
-        <Checkbox Label="Accept terms&conditions"></Checkbox>
-        <FullButton Text="Register" Class="mt-8" />
+        <EditForm Model="@Input" asp-route-returnUrl="@ReturnUrl" method="post" OnSubmit="RegisterUser" FormName="register">
+            <DataAnnotationsValidator/>
+            <MainTitle Title="Registration" Class="mb-8"/>
+            <TextInput @bind-Value="@Input.Email" Label="E-mail"/>
+            <TextInput @bind-Value="@Input.Password" Type="password" Label="Password"/>
+            <TextInput @bind-Value="@Input.ConfirmPassword" Type="password" Label="Confirm Password"/>
+            <Checkbox Label="Accept terms & conditions"></Checkbox>
+            <FullButton IsSubmit="true" Text="Register" Class="mt-8"/>
+        </EditForm>
         <div class="mt-4">
             Already have an account? <a href="/app/login" class="text-orange-500">Login</a>
         </div>
     </div>
 </div>
+
+@code
+{
+    [SupplyParameterFromForm] private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery] private string? ReturnUrl { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Input = new();
+        Console.WriteLine(Input.Email);
+    }
+
+    private async Task RegisterUser(EditContext editContext)
+    {
+        CreateUserCommand command = new(Input.Email, Input.Password);
+        var result = await Mediator.Send(command);
+        
+        NavigationManager.NavigateTo($"/app/account/login?returnUrl={ReturnUrl}");
+    }
+
+    private sealed class InputModel
+    {
+        [Required] [EmailAddress] public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(1000, MinimumLength = 10, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        public string Password { get; set; } = string.Empty;
+
+        [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+    }
+}

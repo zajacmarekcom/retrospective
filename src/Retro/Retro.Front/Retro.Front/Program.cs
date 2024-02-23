@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Retro.Front.Client.Pages;
 using Retro.Front.Components;
+using Retro.Front.Components.Account;
+using Retro.Infrastructure;
+using Retro.Infrastructure.Account;
+using Retro.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +13,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<IdentityUserAccessor>();
+builder.Services.AddScoped<IdentityRedirectManager>();
+builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = IdentityConstants.ApplicationScheme;
+        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddIdentityCookies();
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddSignInManager()
+    .AddIdentityDatabase();
 
 var app = builder.Build();
 
@@ -32,5 +55,7 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
+
+app.MapAdditionalIdentityEndpoints();
 
 app.Run();
