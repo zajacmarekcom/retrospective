@@ -1,13 +1,27 @@
-﻿@page "/app/account/login"
+﻿@page "/app/login"
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using Retro.Front.Components.Account
+@using Retro.Infrastructure.Account
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@inject UserManager<ApplicationUser> UserManager
+@rendermode InteractiveServer
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
     <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
         <MainTitle Title="Login" Class="mb-8"/>
-        <TextInput Label="E-mail"/>
-        <TextInput Type="password" Label="Password"/>
-        <Checkbox Label="Remember me"></Checkbox>
-        <FullButton Text="Log in" Class="mt-8"/>
+        @if (IsError)
+        {
+            <div>Incorrect login or password.</div>
+        }
+        <EditForm Model="@Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="LoginUser" FormName="login">
+            <TextInput @bind-Value="@Input.Email" Label="E-mail"/>
+            <TextInput @bind-Value="@Input.Password" Type="password" Label="Password"/>
+            <Checkbox Value="@Input.RememberMe" Label="Remember me"></Checkbox>
+            <FullButton IsSubmit="true" Text="Log in" Class="mt-8"/>
+        </EditForm>
 
         <div class="flex flex-row justify-between mt-8">
             <a class="text-orange-500" href="/app/reset-password">Forgot password?</a>
@@ -15,3 +29,49 @@
         </div>
     </div>
 </div>
+
+@code
+{
+    [SupplyParameterFromForm] private LoginModel Input { get; set; } = new();
+    
+    [SupplyParameterFromQuery] private string? ReturnUrl { get; set; } = "/app/team";
+    
+    private bool IsError { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Input = new();
+    }
+
+    public async Task LoginUser(EditContext editContext)
+    {
+        var user = await UserManager.FindByEmailAsync(Input.Email);
+
+        if (user is null)
+        {
+            IsError = true;
+            return;
+        }
+        
+        var result = await SignInManager.CheckPasswordSignInAsync(user, Input.Password, false);
+        if (result.Succeeded)
+        {
+            var key = Guid.NewGuid();
+            CookieLoginMiddleware.Logins[key] = new LoginInfo() { Email = Input.Email, Password = Input.Password, RememberMe = Input.RememberMe, ReturnUrl = ReturnUrl ?? "/app/team"};
+            NavigationManager.NavigateTo($"/app/login?key={key}", true);
+        }
+
+        IsError = true;
+    }
+
+    private sealed class LoginModel
+    {
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public string Password { get; set; } = string.Empty;
+        
+        public bool RememberMe { get; set; }
+    }
+}
