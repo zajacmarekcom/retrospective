@@ -50,6 +50,10 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseMiddleware<CookieLoginMiddleware>();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()

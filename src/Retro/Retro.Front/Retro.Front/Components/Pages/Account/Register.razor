@@ -8,7 +8,7 @@
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
     <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
-        <EditForm Model="@Input" asp-route-returnUrl="@ReturnUrl" method="post" OnSubmit="RegisterUser" FormName="register">
+        <EditForm Model="@Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator/>
             <MainTitle Title="Registration" Class="mb-8"/>
             <TextInput @bind-Value="@Input.Email" Label="E-mail"/>
@@ -32,7 +32,6 @@
     protected override void OnInitialized()
     {
         Input = new();
-        Console.WriteLine(Input.Email);
     }
 
     private async Task RegisterUser(EditContext editContext)
@@ -40,7 +39,7 @@
         CreateUserCommand command = new(Input.Email, Input.Password);
         var result = await Mediator.Send(command);
         
-        NavigationManager.NavigateTo($"/app/account/login?returnUrl={ReturnUrl}");
+        NavigationManager.NavigateTo($"/app/login?returnUrl={ReturnUrl}");
     }
 
     private sealed class InputModel
