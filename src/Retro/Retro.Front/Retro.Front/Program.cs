@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Retro.Front.Client.Pages;
 using Retro.Front.Components;
 using Retro.Front.Components.Account;
-using Retro.Infrastructure;
-using Retro.Infrastructure.Account;
-using Retro.Infrastructure.Persistence;
+using Retro.Module.User;
+using Retro.Module.User.Account;
+using Retro.Module.User.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +26,16 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddSignInManager()
     .AddIdentityDatabase();
+
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = "/app/login";
+    config.LogoutPath = "/app/logout";
+});
 
 var app = builder.Build();
 

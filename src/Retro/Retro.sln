@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Front", "Retro.Front\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Front.Client", "Retro.Front\Retro.Front.Client\Retro.Front.Client.csproj", "{824755E3-2C42-4DAD-B567-9FFA22FA6F18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Infrastructure", "Retro.Infrastructure\Retro.Infrastructure.csproj", "{0836B727-64AF-4767-928F-F069ED4172AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Module.User", "Retro.Module.User\Retro.Module.User.csproj", "{0836B727-64AF-4767-928F-F069ED4172AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Application", "Retro.Application\Retro.Application.csproj", "{0BD1EBA2-DBC7-4971-9ED0-9DC59A0B9B4B}"
 EndProject

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Retro.Infrastructure.Account;
+using Retro.Module.User.Account;
 
 namespace Retro.Front.Components.Account;
 

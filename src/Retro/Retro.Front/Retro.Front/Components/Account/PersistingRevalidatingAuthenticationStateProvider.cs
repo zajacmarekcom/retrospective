@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Retro.Front.Client;
-using Retro.Infrastructure.Account;
+using Retro.Module.User.Account;
 
 namespace Retro.Front.Components.Account;
 
