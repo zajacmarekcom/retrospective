@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Retro.Infrastructure.Account;
+using Retro.Module.User.Account;
 
 namespace Retro.Front.Components.Account;
 
@@ -12,7 +12,7 @@ internal static class IdentityComponentEndpointRouteBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(endpoints);
         
-        var accountGroup = endpoints.MapGroup("/account");
+        var accountGroup = endpoints.MapGroup("/app");
 
         accountGroup.MapPost("/logout", async (
             ClaimsPrincipal user,

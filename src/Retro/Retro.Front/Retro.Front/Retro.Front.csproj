@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Retro.Application\Retro.Application.csproj" />
-    <ProjectReference Include="..\..\Retro.Infrastructure\Retro.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Retro.Module.User\Retro.Module.User.csproj" />
     <ProjectReference Include="..\Retro.Front.Client\Retro.Front.Client.csproj" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
