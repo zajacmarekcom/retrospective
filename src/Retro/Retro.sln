@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Application", "Retro.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Common", "Retro.Common\Retro.Common.csproj", "{CA54FB84-9A69-46B5-BDDB-E8713793FF25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Module.Team", "Retro.Module.Team\Retro.Module.Team.csproj", "{128BA069-76CF-4136-BA53-0CE4BAA10695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Common.Domain", "Retro.Common.Domain\Retro.Common.Domain.csproj", "{F48C5207-20AB-4556-82A5-13766288639E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{CA54FB84-9A69-46B5-BDDB-E8713793FF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA54FB84-9A69-46B5-BDDB-E8713793FF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA54FB84-9A69-46B5-BDDB-E8713793FF25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128BA069-76CF-4136-BA53-0CE4BAA10695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128BA069-76CF-4136-BA53-0CE4BAA10695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128BA069-76CF-4136-BA53-0CE4BAA10695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128BA069-76CF-4136-BA53-0CE4BAA10695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48C5207-20AB-4556-82A5-13766288639E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48C5207-20AB-4556-82A5-13766288639E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48C5207-20AB-4556-82A5-13766288639E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48C5207-20AB-4556-82A5-13766288639E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
