@@ -50,8 +50,8 @@ Here is a list of planned features in Retrospective. Implemented features are ma
         - [ ] Join by code
         - [ ] Join by link
     - [ ] Accounts
-        - [ ] Create account
-        - [ ] Login
+        - [x] Create account
+        - [x] Login
         - [ ] Delete account
         - [ ] Login by Azure AD
     - [ ] Profiles
