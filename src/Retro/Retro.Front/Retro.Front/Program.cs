@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Retro.Front.Client.Pages;
 using Retro.Front.Components;
 using Retro.Front.Components.Account;
+using Retro.Front.Endpoints;
+using Retro.Front.Interfaces;
+using Retro.Front.Services;
+using Retro.Module.Team;
 using Retro.Module.User;
 using Retro.Module.User.Account;
-using Retro.Module.User.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +29,6 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddSignInManager()
     .AddIdentityDatabase();
@@ -36,6 +38,12 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.LoginPath = "/app/login";
     config.LogoutPath = "/app/logout";
 });
+
+builder.Services.AddTransient<ITeamService, TeamService>();
+
+// Modules registration
+builder.Services.AddTeamModule(builder.Configuration);
+builder.Services.AddUserModule(builder.Configuration);
 
 var app = builder.Build();
 
@@ -64,8 +72,11 @@ app.UseMiddleware<CookieLoginMiddleware>();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+    .AddAdditionalAssemblies(typeof(Auth).Assembly);
 
 app.MapAdditionalIdentityEndpoints();
+
+// Map modules endpoints
+app.AddTeamEndpoints();
 
 app.Run();

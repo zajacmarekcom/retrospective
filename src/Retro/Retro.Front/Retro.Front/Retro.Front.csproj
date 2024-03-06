@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Retro.Application\Retro.Application.csproj" />
+    <ProjectReference Include="..\..\Retro.Module.Team\Retro.Module.Team.csproj" />
     <ProjectReference Include="..\..\Retro.Module.User\Retro.Module.User.csproj" />
     <ProjectReference Include="..\Retro.Front.Client\Retro.Front.Client.csproj" />
     <PackageReference Include="MediatR" Version="12.2.0" />
