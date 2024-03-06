@@ -1,14 +1,27 @@
 ﻿@page "/app/team/new"
+@using Retro.Front.Interfaces
+@inject ITeamService TeamService
+@rendermode InteractiveServer
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
     <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
         <MainTitle Title="Create new Team" Class="mb-8"/>
         <p class="text-center mb-8">Put a name of your new Team</p>
-        <TextInput Value="@Name" Label="Name"/>
-        <FullButton Text="Create" Class="mt-8"/>
+        <TextInput @bind-Value="@Name" Label="Name"/>
+        <FullButton OnClick="@Create" Text="Create" Class="mt-8"/>
     </div>
 </div>
 
 @code {
     public string? Name { get; set; }
+    
+    private async Task Create()
+    {
+        if (string.IsNullOrEmpty(Name))
+        {
+            return;
+        }
+        
+        var teamId = await TeamService.CreateTeam(Name);
+    }
 }
