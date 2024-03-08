@@ -1,4 +1,5 @@
 ﻿@using Retro.Front.Components.Common.Services
+@using Retro.Module.Team.Application.Dtos
 @inherits LayoutComponentBase
 @layout MainLayout
 @inject TeamDataService TeamDataService
@@ -6,8 +7,23 @@
 @Body
 
 <SectionContent SectionName="PreLogoTopBar">
-    @if (TeamDataService.CurrentTeam is not null)
+    @if (_currentTeam is not null)
     {
-        <h4>@TeamDataService.CurrentTeam.Name</h4>
+        <h4>@_currentTeam?.Name</h4>
     }
 </SectionContent>
+
+@code
+{
+    private TeamDto? _currentTeam;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        TeamDataService.TeamChanged += OnTeamChanged;
+    }
+
+    private void OnTeamChanged(TeamDto? team)
+    {
+        _currentTeam = team;
+    }
+}

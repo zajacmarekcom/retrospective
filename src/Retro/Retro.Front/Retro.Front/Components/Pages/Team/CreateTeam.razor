@@ -28,7 +28,9 @@
 
         OverlayService.StartLoading();
         var teamId = await TeamService.CreateTeam(Name);
-        await TeamDataService.SetTeam(teamId);
+        var team = await TeamService.GetTeam(teamId.ToString());
+        await TeamDataService.SetTeam(team!);
+        StateHasChanged();
         OverlayService.StopLoading();
     }
 
