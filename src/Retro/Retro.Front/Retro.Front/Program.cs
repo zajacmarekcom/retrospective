@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Retro.Front.Client.Pages;
 using Retro.Front.Components;
 using Retro.Front.Components.Account;
+using Retro.Front.Components.Common.Services;
 using Retro.Front.Endpoints;
 using Retro.Front.Interfaces;
 using Retro.Front.Services;
@@ -40,6 +41,9 @@ builder.Services.ConfigureApplicationCookie(config =>
 });
 
 builder.Services.AddTransient<ITeamService, TeamService>();
+
+builder.Services.AddScoped<OverlayService>();
+builder.Services.AddSingleton<TeamDataService>();
 
 // Modules registration
 builder.Services.AddTeamModule(builder.Configuration);
