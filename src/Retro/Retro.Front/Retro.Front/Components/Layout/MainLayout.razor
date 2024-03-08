@@ -1,16 +1,21 @@
-﻿@inherits LayoutComponentBase
+﻿@using Retro.Front.Components.Common.Services
+@inherits LayoutComponentBase
+@inject OverlayService OverlayService
 
-<div class="min-h-dvh h-full flex flex-col">
-    <div class="flex-none p-2 w-full m-0 mb-3 grid grid-cols-3 grid-flow-row-dense">
-        <div class="order-3 w-full md:w-auto md:order-1">
-            <SectionOutlet SectionName="PreLogoTopBar"/>
+<CascadingValue Value="OverlayService">
+    <div class="min-h-dvh h-full flex flex-col">
+        <div class="flex-none p-2 w-full m-0 mb-3 grid grid-cols-3 grid-flow-row-dense">
+            <div class="order-3 w-full md:w-auto md:order-1">
+                <SectionOutlet SectionName="PreLogoTopBar"/>
+            </div>
+            <Logo/>
+            <div class="order-2 md:order-3">
+                <SectionOutlet SectionName="PostLogoTopBar"/>
+            </div>
         </div>
-        <Logo />
-        <div class="order-2 md:order-3">
-            <SectionOutlet SectionName="PostLogoTopBar"/>
+        <div class="w-full flex flex-auto min-h-full p-3">
+            @Body
         </div>
     </div>
-    <div class="w-full flex flex-auto min-h-full p-3">
-        @Body
-    </div>
-</div>
+    <Loading />
+</CascadingValue>

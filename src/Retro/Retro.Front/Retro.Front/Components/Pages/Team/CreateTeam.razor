@@ -1,6 +1,9 @@
 ﻿@page "/app/team/new"
 @using Retro.Front.Interfaces
+@using Retro.Front.Components.Common.Services
 @inject ITeamService TeamService
+@inject OverlayService OverlayService
+@inject TeamDataService TeamDataService
 @rendermode InteractiveServer
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
@@ -14,14 +17,19 @@
 
 @code {
     public string? Name { get; set; }
-    
+    [CascadingParameter] public AppLayout? Layout { get; set; }
+
     private async Task Create()
     {
         if (string.IsNullOrEmpty(Name))
         {
             return;
         }
-        
+
+        OverlayService.StartLoading();
         var teamId = await TeamService.CreateTeam(Name);
+        await TeamDataService.SetTeam(teamId);
+        OverlayService.StopLoading();
     }
+
 }

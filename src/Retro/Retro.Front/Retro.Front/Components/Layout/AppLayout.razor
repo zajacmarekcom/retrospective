@@ -1,0 +1,13 @@
+﻿@using Retro.Front.Components.Common.Services
+@inherits LayoutComponentBase
+@layout MainLayout
+@inject TeamDataService TeamDataService
+
+@Body
+
+<SectionContent SectionName="PreLogoTopBar">
+    @if (TeamDataService.CurrentTeam is not null)
+    {
+        <h4>@TeamDataService.CurrentTeam.Name</h4>
+    }
+</SectionContent>
