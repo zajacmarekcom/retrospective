@@ -1,16 +1,17 @@
-﻿using Retro.Front.Interfaces;
-using Retro.Module.Team.Application.Dtos;
+﻿using Retro.Module.Team.Application.Dtos;
 
 namespace Retro.Front.Components.Common.Services;
 
-public class TeamDataService(ITeamService teamService)
+public class TeamDataService
 {
-    private Guid? _currentTeamId;
     public TeamDto? CurrentTeam { get; private set; }
 
-    public async Task SetTeam(Guid teamId)
+    public async Task SetTeam(TeamDto team)
     {
-        _currentTeamId = teamId;
-        CurrentTeam = await teamService.GetTeam(teamId.ToString());
+        CurrentTeam = team;
+        TeamChanged?.Invoke(team);
     }
+    
+    public event TeamChangedHandler? TeamChanged;
+    public delegate void TeamChangedHandler(TeamDto? team);
 }
