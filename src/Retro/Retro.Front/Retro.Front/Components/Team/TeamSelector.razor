@@ -1,0 +1,21 @@
+﻿@using Retro.Front.Components.Common.Services
+@using Retro.Module.Team.Application.Dtos
+@inject TeamDataService TeamDataService
+
+<span class="text-lg font-bold">@(_currentTeam?.Name)</span>
+
+@code
+{
+    private TeamDto? _currentTeam;
+    
+    protected override void OnInitialized()
+    {
+        _currentTeam = TeamDataService.CurrentTeam;
+        TeamDataService.TeamChanged += TeamChanged;
+    }
+    
+    private void TeamChanged(TeamDto? team)
+    {
+        _currentTeam = team;
+    }
+}
