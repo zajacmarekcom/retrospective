@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Retro.Front.Client.Pages;
@@ -43,7 +44,9 @@ builder.Services.ConfigureApplicationCookie(config =>
 builder.Services.AddTransient<ITeamService, TeamService>();
 
 builder.Services.AddScoped<OverlayService>();
-builder.Services.AddSingleton<TeamDataService>();
+builder.Services.AddScoped<TeamDataService>();
+
+builder.Services.AddBlazoredLocalStorage();
 
 // Modules registration
 builder.Services.AddTeamModule(builder.Configuration);

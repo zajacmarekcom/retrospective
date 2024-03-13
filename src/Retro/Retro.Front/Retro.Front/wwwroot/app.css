@@ -2163,6 +2163,10 @@ video {
   stroke: #3b82f6;
 }
 
+.stroke-orange-500 {
+  stroke: #f97316;
+}
+
 .stroke-1 {
   stroke-width: 1;
 }

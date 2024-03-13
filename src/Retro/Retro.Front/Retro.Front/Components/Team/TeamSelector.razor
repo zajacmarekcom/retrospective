@@ -1,6 +1,7 @@
 ﻿@using Retro.Front.Components.Common.Services
 @using Retro.Module.Team.Application.Dtos
 @inject TeamDataService TeamDataService
+@rendermode InteractiveServer
 
 <span class="text-lg font-bold">@(_currentTeam?.Name)</span>
 
@@ -13,9 +14,18 @@
         _currentTeam = TeamDataService.CurrentTeam;
         TeamDataService.TeamChanged += TeamChanged;
     }
-    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await TeamDataService.Initialize();
+        }
+    }
+
     private void TeamChanged(TeamDto? team)
     {
         _currentTeam = team;
+        StateHasChanged();
     }
 }

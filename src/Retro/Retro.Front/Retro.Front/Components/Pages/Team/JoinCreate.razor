@@ -1,14 +1,31 @@
 ﻿@page "/app/team"
+@inject TeamDataService TeamDataService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <div class="flex flex-auto flex-col justify-center w-full min-h-full items-center">
     <div class="flex flex-col h-fit lg:w-1/4 md:w-1/2 sm:w-full">
         <MainTitle Title="Join or create the Team" Class="mb-8"/>
         <div class="flex flex-1">
-            <FullLink Href="/app/team/join" BigButton="true" Text="Join" />
+            <FullLink Href="/app/team/join" BigButton="true" Text="Join"/>
             <div
                 class="h-full min-h-[1em] w-px self-stretch bg-gray-500 opacity-20 dark:opacity-100 mx-6">
             </div>
-            <FullLink Href="/app/team/new" BigButton="true" Text="Create" />
+            <FullLink Href="/app/team/new" BigButton="true" Text="Create"/>
         </div>
     </div>
 </div>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        TeamDataService.TeamChanged += team =>
+        {
+            if (team is not null)
+            {
+                NavigationManager.NavigateTo("/app/");
+            }
+        };
+    }
+}

@@ -1,7 +1,7 @@
 ﻿@using Retro.Front.Components.Board.Dtos
 
-<div class="border border-solid p-4" @onpointerenter="@(OnPointerEnter)" @onpointerleave="@(OnPointerLeave)" @onpointerup="@(OnItemDropped)">
-    <h3 class="border-b border-solid  p-2 tracking-wide text-center font-extralight text-lg uppercase">
+<div class="border border-solid border-gray-500 p-4" @onpointerenter="@(OnPointerEnter)" @onpointerleave="@(OnPointerLeave)" @onpointerup="@(OnItemDropped)">
+    <h3 class="border-b border-solid border-gray-500 p-2 tracking-wide text-center font-extralight text-lg uppercase">
         @Title
     </h3>
     @if (_showTemporaryItem)
