@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\Retro.Module.Team\Retro.Module.Team.csproj" />
     <ProjectReference Include="..\..\Retro.Module.User\Retro.Module.User.csproj" />
     <ProjectReference Include="..\Retro.Front.Client\Retro.Front.Client.csproj" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
