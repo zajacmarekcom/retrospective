@@ -8,6 +8,7 @@ using Retro.Front.Components.Common.Services;
 using Retro.Front.Endpoints;
 using Retro.Front.Interfaces;
 using Retro.Front.Services;
+using Retro.Module.Board;
 using Retro.Module.Team;
 using Retro.Module.User;
 using Retro.Module.User.Account;
@@ -49,6 +50,7 @@ builder.Services.AddScoped<TeamDataService>();
 builder.Services.AddBlazoredLocalStorage();
 
 // Modules registration
+builder.Services.AddBoardModule(builder.Configuration);
 builder.Services.AddTeamModule(builder.Configuration);
 builder.Services.AddUserModule(builder.Configuration);
 

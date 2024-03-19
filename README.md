@@ -45,7 +45,7 @@ Here is a list of planned features in Retrospective. Implemented features are ma
     - [ ] Change action's title
     - [ ] Vote for actions
 - [ ] Team management
-    - [ ] Create team
+    - [x] Create team
     - [ ] Join the team
         - [ ] Join by code
         - [ ] Join by link

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Retro.Module.Board\Retro.Module.Board.csproj" />
     <ProjectReference Include="..\..\Retro.Module.Team\Retro.Module.Team.csproj" />
     <ProjectReference Include="..\..\Retro.Module.User\Retro.Module.User.csproj" />
     <ProjectReference Include="..\Retro.Front.Client\Retro.Front.Client.csproj" />

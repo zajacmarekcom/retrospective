@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Module.Team", "Retro.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Common.Domain", "Retro.Common.Domain\Retro.Common.Domain.csproj", "{F48C5207-20AB-4556-82A5-13766288639E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Module.Board", "Retro.Module.Board\Retro.Module.Board.csproj", "{3234CA95-640C-45DE-B717-1FE565EBB9C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F48C5207-20AB-4556-82A5-13766288639E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F48C5207-20AB-4556-82A5-13766288639E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F48C5207-20AB-4556-82A5-13766288639E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3234CA95-640C-45DE-B717-1FE565EBB9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3234CA95-640C-45DE-B717-1FE565EBB9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3234CA95-640C-45DE-B717-1FE565EBB9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3234CA95-640C-45DE-B717-1FE565EBB9C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
