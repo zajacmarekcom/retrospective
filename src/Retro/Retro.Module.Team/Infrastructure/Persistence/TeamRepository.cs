@@ -7,7 +7,7 @@ namespace Retro.Module.Team.Infrastructure.Persistence;
 
 public class TeamRepository(TeamDbContext dbContext, IMemoryCache cache) : ITeamRepository
 {
-    public async Task<Domain.Team?> GetByIdAsync(Guid id)
+    public async Task<Domain.Team?> GetById(Guid id)
     {
         var semaphore = new SemaphoreSlim(1, 1);
 
@@ -70,7 +70,7 @@ public class TeamRepository(TeamDbContext dbContext, IMemoryCache cache) : ITeam
         return userTeams ?? new UserTeamsDto(userId, []);
     }
 
-    public async Task AddAsync(Domain.Team entity)
+    public void Add(Domain.Team entity)
     {
         var teamEntity = new Entities.TeamEntity
         {
@@ -80,10 +80,9 @@ public class TeamRepository(TeamDbContext dbContext, IMemoryCache cache) : ITeam
         };
 
         dbContext.Teams.Add(teamEntity);
-        await dbContext.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(Domain.Team entity)
+    public void Update(Domain.Team entity)
     {
         var teamEntity = new Entities.TeamEntity
         {
@@ -114,6 +113,10 @@ public class TeamRepository(TeamDbContext dbContext, IMemoryCache cache) : ITeam
         }
 
         dbContext.Teams.Update(teamEntity);
-        return dbContext.SaveChangesAsync();
+    }
+
+    public async Task Save()
+    {
+        await dbContext.SaveChangesAsync();
     }
 }
