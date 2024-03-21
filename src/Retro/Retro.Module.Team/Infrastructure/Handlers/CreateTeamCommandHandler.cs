@@ -9,7 +9,8 @@ public class CreateTeamCommandHandler(ITeamRepository teamRepository) : IRequest
     public async Task<Guid> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
     {
         var team = new Domain.Team(request.OwnerId ,request.Name);
-        await teamRepository.AddAsync(team);
+        teamRepository.Add(team);
+        await teamRepository.Save();
         
         return team.Id;
     }

@@ -17,4 +17,9 @@
       <Folder Include="Infrastructure\Persistence\Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Retro.Common.Domain\Retro.Common.Domain.csproj" />
+      <ProjectReference Include="..\Retro.Common\Retro.Common.csproj" />
+    </ItemGroup>
+
 </Project>
