@@ -1,12 +1,15 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { CheckCircleOutlineRounded } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { startSession } from '../features/session/sessionSlice';
 
 
 export default function CurrentSprint() {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const dispatch = useDispatch();
+
+    function startNewSession() {
+      dispatch(startSession('1'));
+    }
   
     return (
       <Card sx={{ height: '100%' }}>
@@ -17,10 +20,10 @@ export default function CurrentSprint() {
             gutterBottom
             sx={{ fontWeight: '600' }}
           >
-            Current Sprint
+            Go with it!
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: '8px' }}>
-            Uncover performance and visitor insights with our data wizardry.
+            <b>Ready for discuss</b> topics from the latest Sprint? <b>Start Session now</b> and become the Host of the Retrospective!
           </Typography>
           <Button
             variant="contained"
@@ -28,6 +31,7 @@ export default function CurrentSprint() {
             color="success"
             endIcon={<CheckCircleOutlineRounded />}
             fullWidth={true}
+            onClick={startNewSession}
           >
             Start retrospective!
           </Button>

@@ -33,7 +33,7 @@ export default function HighlightedCard() {
           endIcon={<ChevronRightRoundedIcon />}
           fullWidth={isSmallScreen}
         >
-          Get insights
+          Start session
         </Button>
       </CardContent>
     </Card>
